@@ -10,21 +10,25 @@ var value = process.argv[3];
 // We will then create a switch-case statement (if-else would also work).
 // The switch-case will direct which function gets run.
 switch (action) {
-case "total":
-  total();
-  break;
+  case "total":
+    total();
+    break;
 
-case "deposit":
-  deposit();
-  break;
+  case "totalPIT":
+    totalPIT();
+    break;
 
-case "withdraw":
-  withdraw();
-  break;
+  case "deposit":
+    deposit();
+    break;
 
-case "lotto":
-  lotto();
-  break;
+  case "withdraw":
+    withdraw();
+    break;
+
+  case "lotto":
+    lotto();
+    break;
 }
 
 // If the "total" function is called...
@@ -52,6 +56,31 @@ function total() {
   });
 }
 
+// Total at a point in time
+function totalPIT() {
+
+  // We will read the existing bank file
+  fs.readFile("bank.txt", "utf8", function(err, data) {
+    if (err) {
+      return console.log(err);
+    }
+
+    // Break down all the numbers inside
+    data = data.split(", ");
+    var result = 0;
+
+    // Loop through those numbers and add them together to get a sum.
+    for (var i = 0; i < parseInt(value); i++) {
+      if (parseFloat(data[i])) {
+        result += parseFloat(data[i]);
+      }
+    }
+
+    // We will then print the final balance rounded to two decimal places.
+    console.log("You have a total of " + result.toFixed(2));
+  });
+}
+
 // If the "Deposit" function is called...
 function deposit() {
 
@@ -60,10 +89,10 @@ function deposit() {
     if (err) {
       return console.log(err);
     }
+    // We will then print the value that was added (but we wont print the total).
+    console.log("Deposited " + value + ".");
   });
 
-  // We will then print the value that was added (but we wont print the total).
-  console.log("Deposited " + value + ".");
 }
 
 // If the "Withdraw" function is called
@@ -74,10 +103,10 @@ function withdraw() {
     if (err) {
       return console.log(err);
     }
+    // We will then print the value that was subtracted (but we wont print the total).
+    console.log("Withdrew " + value + ".");
   });
 
-  // We will then print the value that was subtracted (but we wont print the total).
-  console.log("Withdrew " + value + ".");
 }
 
 
