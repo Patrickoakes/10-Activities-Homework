@@ -12,3 +12,5 @@ else {
 
 // Solution 2 - Simplified (Re-factored)
 console.log(process.argv[2] === process.argv[3]);
+//Trinary operator
+console.log(process.argv[2] === process.argv[3] ? "equals" : "not equal" );
